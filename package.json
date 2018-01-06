@@ -1,0 +1,19 @@
+{
+  "name": "fluidsync",
+  "version": "1.0.0",
+  "description": "heroku test",
+  "main": "main_ws.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "dependencies": {
+    "ws": ">=4.0.0",  
+    "bufferutil": "^3.0.3",
+    "utf-8-validate": "^4.0.0"
+  },  
+  "author": "",
+  "license": "ISC"
+}
