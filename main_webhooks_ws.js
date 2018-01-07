@@ -378,7 +378,7 @@ const httpServer = http.createServer((req, res) => {
 
 const PERIOD = 15 * 60 * 1000;
 
-const pingTarget = 'fluidsync2.herokuapp.com';
+const pingTarget = 'fluidbridge.herokuapp.com';
 const pingOptions = { hostname: pingTarget };
 
 setInterval(() => {
