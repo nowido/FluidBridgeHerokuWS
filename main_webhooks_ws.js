@@ -13,8 +13,8 @@ function FluidSyncClient(options)
 
     this.clientHandlers = new Map();
 
-    let eventTypes = ['open', 'close', 'error', 'message'];
-    let handlerKeys = ['onOpen', 'onClose', 'onError', 'onMessage'];
+    let eventTypes = ['open', 'close', 'error', 'message', 'pong'];
+    let handlerKeys = ['onOpen', 'onClose', 'onError', 'onMessage', 'onPong'];
 
     eventTypes.forEach((et, i) => {
 
@@ -95,6 +95,18 @@ FluidSyncClient.prototype.onMessage = function(e)
 
     let handlers = this.clientHandlers;
 
+    if(jsonData === this.appLayerPongMessage)
+    {
+        let pongHandler = handlers.get('pong');
+
+        if(pongHandler)
+        {
+            pongHandler(this);
+        }
+
+        return;
+    }
+    
     let handler = handlers.get('message');
     
     if(handler)
@@ -125,10 +137,13 @@ FluidSyncClient.prototype.onMessage = function(e)
         }
         catch(err)
         {}
-    }                                           
+    }  
 }
 
-FluidSyncClient.prototype.WATCHDOG_PERIOD = 30 * 1000; // 30 sec
+FluidSyncClient.prototype.WATCHDOG_PERIOD = 20 * 1000; // 20 sec
+
+FluidSyncClient.prototype.appLayerPingMessage = 'fluidsync-ping';
+FluidSyncClient.prototype.appLayerPongMessage = 'fluidsync-pong';
 
 FluidSyncClient.prototype.startWatchdog = function()
 {
@@ -145,6 +160,15 @@ FluidSyncClient.prototype.onWatchdog = function()
     if(this.disconnected)
     {
         this.connect();
+    }
+    else
+    {
+        let socket = this.socket;
+        
+        if(socket && (socket.readyState === 1))
+        {
+            socket.send(this.appLayerPingMessage);
+        }
     }
 }
 
@@ -294,6 +318,13 @@ function onMessage(fluidsync, message)
     //console.log(message);     
 }
 
+/*
+function onPong(fluidsync)
+{
+    console.log('pong on ['  + fluidsync.id + ']');                
+}
+*/
+
     // FluidSync host
     // to do use config or commandline arg... but, honestly, if where are other FluidSync providers?
 const fluidsync = new FluidSyncClient({
@@ -301,7 +332,8 @@ const fluidsync = new FluidSyncClient({
     onOpen: onOpen,
     onClose: onClose,
     onError: onError,
-    onMessage: onMessage
+    onMessage: onMessage/*,
+    onPong: onPong*/
 });
             
 var fluidsyncSocketId;
