@@ -1,8 +1,8 @@
 {
-  "name": "fluidsync",
+  "name": "fluidbridge",
   "version": "1.0.0",
   "description": "heroku test",
-  "main": "main_ws.js",
+  "main": "main_webhooks_ws.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,10 +10,8 @@
     "node": ">=8.0.0"
   },
   "dependencies": {
-    "ws": ">=4.0.0",  
-    "bufferutil": "^3.0.3",
-    "utf-8-validate": "^4.0.0"
+    "fluidsync_ws_client": "^1.0.1"  
   },  
-  "author": "",
+  "author": "Oleg Nazarkin",
   "license": "ISC"
 }
