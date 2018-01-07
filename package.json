@@ -10,8 +10,8 @@
     "node": ">=8.0.0"
   },
   "dependencies": {
-    "fluidsync_ws_client": "^1.0.1"  
-  },  
+    "fluidsync_ws_client": "^1.0.3"
+  },
   "author": "Oleg Nazarkin",
   "license": "ISC"
 }
