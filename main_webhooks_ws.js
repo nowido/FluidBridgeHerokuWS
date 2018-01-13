@@ -141,10 +141,10 @@ function pushToFCM(body)
             {
                 admin.messaging().sendToDevice(token, {data: data.payload})
                 .then(response => {
-                    console.log(response);
+                    //console.log(response);
                 })
                 .catch(err => {
-                    console.log(err);
+                    //console.log(err);
                 });
             }                    
         }
