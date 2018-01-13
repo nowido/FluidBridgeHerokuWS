@@ -61,10 +61,12 @@ const httpServer = http.createServer((req, res) => {
     res.setHeader('Content-Type', 'text/plain');
     res.setHeader('Access-Control-Allow-Origin', '*');      
 
+    let method = req.method;
+
     if(method === 'GET')    
     {
         pushToFluidSync(req);
-        
+
         res.end(answerWH);
     }
     else if(method === 'POST')
